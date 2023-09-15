@@ -58,3 +58,7 @@
 .line_through{
     text-decoration: line-through;
 }
+
+.line_none{
+    text-decoration: none;
+}

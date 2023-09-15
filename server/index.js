@@ -17,9 +17,17 @@ app.get('/get', (req,res) => {
 
 app.put('/update/:id', (req,res) => {
     const {id} = req.params;
-    TodoModel.findByIdAndUpdate({_id: id}, {done: true})
-    .then(result => res.json(result))
-    .catch(err => res.json(err))
+    TodoModel.findById({_id:id})
+    .then(todo =>{
+        todo.done = !todo.done;
+        return todo.save();
+    })
+    .then(updatedTodo => {
+        res.json(updatedTodo);
+    })
+    .catch(err => {
+        res.status(500).json({ error: 'An error occurred' });
+    });  
 })
 
 app.delete('/delete/:id', (req,res) => {
